@@ -218,14 +218,12 @@
   .thumb{
     aspect-ratio:16/9;
     overflow:hidden;
-    background:#f4f5f7;
+    background:var(--surface-2);
     flex:none;
   }
   .thumb img{
     width:100%; height:100%;
-    object-fit:contain;
-    padding:12px;
-    box-sizing:border-box;
+    object-fit:cover;
     display:block;
   }
 
@@ -282,7 +280,57 @@
   }
   .card .link:hover{ color:var(--accent); }
 
+  .bulletin, article.card{ cursor:pointer; transition:transform .15s ease, box-shadow .15s ease, border-color .15s ease; }
+  .bulletin:hover, article.card:hover{ transform:translateY(-2px); box-shadow:0 4px 10px -2px rgba(20,23,28,.15), 0 14px 30px -14px rgba(20,23,28,.25); }
+  .bulletin:focus-visible, article.card:focus-visible{ outline:2px solid var(--accent); outline-offset:2px; }
+
   [hidden]{ display:none !important; }
+
+  /* ---------- Story modal ---------- */
+  .story-modal{
+    position:relative;
+    padding:0;
+    border:1px solid var(--border);
+    border-radius:12px;
+    background:var(--surface);
+    color:var(--text);
+    width:min(94vw, 620px);
+    max-height:min(88vh, 720px);
+    overflow-y:auto;
+    box-shadow:var(--shadow);
+  }
+  .story-modal::backdrop{ background:rgba(10,12,16,.6); backdrop-filter:blur(1px); }
+  .story-modal .modal-thumb{ aspect-ratio:16/9; overflow:hidden; background:var(--surface-2); }
+  .story-modal .modal-thumb img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .story-modal .modal-body{ padding:22px 26px 26px; display:flex; flex-direction:column; gap:12px; }
+  .story-modal .modal-kicker{
+    font-family:'JetBrains Mono', monospace; font-size:11.5px;
+    letter-spacing:.08em; text-transform:uppercase; color:var(--cat, var(--accent));
+    font-weight:700;
+  }
+  .story-modal h2{
+    font-family:'Source Serif 4', Georgia, serif;
+    font-size:24px; line-height:1.3; margin:0; font-weight:700;
+  }
+  .story-modal .modal-desc{ margin:0; color:var(--text-dim); font-size:15px; line-height:1.6; }
+  .story-modal .modal-meta{
+    display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap;
+    padding-top:8px; border-top:1px solid var(--border);
+    font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--text-faint);
+  }
+  .story-modal .modal-link{
+    color:var(--text-dim); text-decoration:none; border-bottom:1px solid var(--border);
+    white-space:nowrap;
+  }
+  .story-modal .modal-link:hover{ color:var(--accent); border-color:var(--accent); }
+  .modal-close{
+    position:absolute; top:12px; right:12px;
+    width:32px; height:32px; border-radius:50%;
+    border:1px solid var(--border); background:var(--surface);
+    color:var(--text-dim); font-size:16px; line-height:1; cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .modal-close:hover{ color:var(--text); border-color:var(--text-faint); }
 
   /* ---------- Footer ---------- */
   footer{
@@ -607,6 +655,20 @@
   </div>
 </footer>
 
+<dialog id="story-modal" class="story-modal">
+  <button class="modal-close" type="button" aria-label="Cerrar">✕</button>
+  <div class="modal-thumb" id="modal-thumb"><img id="modal-img" src="" alt=""></div>
+  <div class="modal-body">
+    <span class="modal-kicker" id="modal-kicker"></span>
+    <h2 id="modal-title"></h2>
+    <p class="modal-desc" id="modal-desc"></p>
+    <div class="modal-meta">
+      <span id="modal-source"></span>
+      <a class="modal-link" id="modal-link" href="#" target="_blank" rel="noopener">Leer fuente ↗</a>
+    </div>
+  </div>
+</dialog>
+
 <script>
   (function(){
     var chips = Array.prototype.slice.call(document.querySelectorAll('.chip'));
@@ -644,5 +706,84 @@
     });
 
     render();
+  })();
+
+  (function(){
+    var modal = document.getElementById('story-modal');
+    var modalThumb = document.getElementById('modal-thumb');
+    var modalImg = document.getElementById('modal-img');
+    var modalKicker = document.getElementById('modal-kicker');
+    var modalTitle = document.getElementById('modal-title');
+    var modalDesc = document.getElementById('modal-desc');
+    var modalSource = document.getElementById('modal-source');
+    var modalLink = document.getElementById('modal-link');
+    var items = Array.prototype.slice.call(document.querySelectorAll('.bulletin, article.card'));
+
+    function categoryLabel(item){
+      var kicker = item.querySelector(':scope > .kicker');
+      if(kicker) return kicker.textContent;
+      var section = item.closest('section.category');
+      var h2 = section && section.querySelector('h2');
+      return h2 ? h2.textContent : '';
+    }
+
+    function sourceLine(item){
+      var src = item.querySelector('.src');
+      if(src) return src.textContent.split('—')[0].trim();
+      var row1 = item.querySelector('.row1');
+      if(!row1) return '';
+      return Array.prototype.slice.call(row1.children)
+        .map(function(el){ return el.textContent.trim(); })
+        .filter(Boolean)
+        .join(' · ');
+    }
+
+    function openStory(item){
+      var img = item.querySelector('.thumb img');
+      if(img){
+        modalImg.src = img.currentSrc || img.src;
+        modalImg.alt = img.alt;
+        modalThumb.hidden = false;
+      } else {
+        modalThumb.hidden = true;
+      }
+      var cat = getComputedStyle(item).getPropertyValue('--cat');
+      modal.style.setProperty('--cat', cat.trim() || null);
+      modalKicker.textContent = categoryLabel(item);
+      var h3 = item.querySelector('h3');
+      modalTitle.textContent = h3 ? h3.textContent : '';
+      var p = item.querySelector('p');
+      modalDesc.textContent = p ? p.textContent : '';
+      modalSource.textContent = sourceLine(item);
+      var link = item.querySelector('.src a, .link');
+      if(link){
+        modalLink.href = link.href;
+        modalLink.hidden = false;
+      } else {
+        modalLink.hidden = true;
+      }
+      modal.showModal();
+    }
+
+    items.forEach(function(item){
+      item.setAttribute('tabindex', '0');
+      item.setAttribute('role', 'button');
+      item.addEventListener('click', function(e){
+        if(e.target.closest('a')) return;
+        openStory(item);
+      });
+      item.addEventListener('keydown', function(e){
+        if(e.target.closest('a')) return;
+        if(e.key === 'Enter' || e.key === ' '){
+          e.preventDefault();
+          openStory(item);
+        }
+      });
+    });
+
+    modal.querySelector('.modal-close').addEventListener('click', function(){ modal.close(); });
+    modal.addEventListener('click', function(e){
+      if(e.target === modal) modal.close();
+    });
   })();
 </script>
