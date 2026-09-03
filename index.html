@@ -296,8 +296,12 @@
     color:var(--text);
     width:min(94vw, 620px);
     max-height:min(88vh, 720px);
-    overflow-y:auto;
+    overflow:hidden;
     box-shadow:var(--shadow);
+  }
+  .story-modal .modal-scroll{
+    max-height:min(88vh, 720px);
+    overflow-y:auto;
   }
   .story-modal::backdrop{ background:rgba(10,12,16,.6); backdrop-filter:blur(1px); }
   .story-modal .modal-thumb{ aspect-ratio:16/9; overflow:hidden; background:var(--surface-2); }
@@ -312,7 +316,8 @@
     font-family:'Source Serif 4', Georgia, serif;
     font-size:24px; line-height:1.3; margin:0; font-weight:700;
   }
-  .story-modal .modal-desc{ margin:0; color:var(--text-dim); font-size:15px; line-height:1.6; }
+  .story-modal .modal-desc{ display:flex; flex-direction:column; gap:10px; }
+  .story-modal .modal-desc p{ margin:0; color:var(--text-dim); font-size:15px; line-height:1.6; }
   .story-modal .modal-meta{
     display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap;
     padding-top:8px; border-top:1px solid var(--border);
@@ -398,6 +403,10 @@
       <span class="kicker">Regulación</span>
       <h3>La UE pide cuentas a más de 30 empresas de IA mientras EE.UU. impulsa la desregulación</h3>
       <p>La Comisión Europea envió solicitudes formales de información a más de 30 compañías de IA para verificar el cumplimiento del AI Act, justo cuando el asesor de Trump, Michael Kratsios, promovía en el G20 los "Carolina Principles", que evitan reglas específicas para la tecnología.</p>
+      <div class="full" hidden>
+        <p>La solicitud de información es un paso preliminar que podría derivar en investigaciones formales; se concentra en dos ejes centrales de la AI Act: seguridad de los sistemas y cumplimiento de derechos de autor.</p>
+        <p>La medida coincidió con la reunión ministerial de innovación del G20, celebrada el 1 de septiembre en Chapel Hill, Carolina del Norte, donde Kratsios defendió los "Carolina Principles" con esta frase: "Policymakers do not need to approach each innovation in isolation and should not treat every emerging technology as a first-of-its-kind policy problem." Elon Musk respaldó la postura, contrastando que en EE.UU. "lo nuevo debería ser legal por defecto", mientras que en Europa "todo es ilegal por defecto".</p>
+      </div>
       <span class="src">Al Jazeera — <a href="https://www.aljazeera.com/news/2026/9/2/us-pushes-looser-approach-to-ai-regulation-while-eu-pushes-new-law" target="_blank" rel="noopener">leer fuente ↗</a></span>
     </div>
     <div class="bulletin" style="--cat:var(--cat-dev)">
@@ -405,6 +414,10 @@
       <span class="kicker">Seguridad de modelos</span>
       <h3>OpenAI dice estar construyendo un apagado automatizado para sus sistemas de IA</h3>
       <p>En una carta a demócratas de la Cámara de Representantes, OpenAI reveló que desarrolla mecanismos de apagado automatizado. Al mismo tiempo, expertos cuestionan el razonamiento de "profundidad recurrente" de su modelo Astra.</p>
+      <div class="full" hidden>
+        <p>La carta detalla los mecanismos de apagado que la compañía dice tener en desarrollo para intervenir sobre sus sistemas en caso de comportamiento no deseado, en respuesta a preguntas de legisladores sobre controles de seguridad internos.</p>
+        <p>En paralelo, el enfoque de "razonamiento de profundidad recurrente" de Astra —que reprocesa internamente sus propias inferencias antes de responder— preocupa a especialistas porque dificulta trazar por qué el modelo llegó a una conclusión determinada, un problema conocido como falta de interpretabilidad.</p>
+      </div>
       <span class="src">Cobertura sectorial — ver categoría Programación</span>
     </div>
     <div class="bulletin" style="--cat:var(--cat-corp)">
@@ -412,6 +425,10 @@
       <span class="kicker">Corporativo</span>
       <h3>Palo Alto Networks compra la startup Console por 500 millones de dólares</h3>
       <p>La adquisición deja a Serval como la startup líder restante en automatización de servicios de TI con IA, en un día también marcado por resultados trimestrales récord de Broadcom en semiconductores de IA.</p>
+      <div class="full" hidden>
+        <p>Los términos financieros más allá de la cifra de $500 millones no fueron revelados en su totalidad. La operación consolida una tendencia del sector: las grandes plataformas de ciberseguridad prefieren comprar startups de automatización ya probadas en el mercado antes que construir esas capacidades desde cero.</p>
+        <p>La jornada quedó marcada además por los resultados de Broadcom, que reportó ingresos de semiconductores de IA en alza, reforzando la narrativa de una demanda de infraestructura de IA que sigue superando a la oferta disponible.</p>
+      </div>
       <span class="src">TechCrunch Disrupt / cobertura sectorial — ver categoría Corporativo</span>
     </div>
   </div>
@@ -429,6 +446,9 @@
         <div class="row1"><span class="source">Google</span><span>Hoy</span></div>
         <h3>Gemini 3.8 Flash y Gemini 3.8 Flash Cyber</h3>
         <p>Google lanza dos nuevas variantes de su familia Flash; la versión "Cyber" está orientada a tareas de ciberseguridad y análisis de amenazas.</p>
+        <div class="full" hidden>
+          <p>La variante "Cyber" se suma a una tendencia de la industria de lanzar modelos especializados en detección de amenazas y análisis forense automatizado, un segmento que ha cobrado urgencia a medida que actores maliciosos también usan IA generativa para escalar sus propios ataques.</p>
+        </div>
         <a class="link" href="https://llm-stats.com/ai-news" target="_blank" rel="noopener">Leer fuente →</a>
       </article>
       <article class="card" style="--cat:var(--cat-modelos)">
@@ -436,6 +456,9 @@
         <div class="row1"><span class="source">Anthropic</span><span>Ayer</span></div>
         <h3>Claude Fable 5.1 reduce el costo de lectura de caché a $0.25</h3>
         <p>La actualización incluye un recorte de precio en las lecturas de caché, abaratando el uso intensivo del modelo en aplicaciones de producción.</p>
+        <div class="full" hidden>
+          <p>El recorte a $0.25 por lectura de caché continúa la carrera de precios entre los grandes laboratorios, que buscan abaratar el uso de contexto largo repetido —algo habitual en asistentes de código y agentes que reenvían el mismo historial de conversación en cada llamada al modelo.</p>
+        </div>
         <a class="link" href="https://llm-stats.com/ai-news" target="_blank" rel="noopener">Leer fuente →</a>
       </article>
       <article class="card" style="--cat:var(--cat-modelos)">
@@ -443,12 +466,18 @@
         <div class="row1"><span class="source">Tencent</span><span>Viernes</span></div>
         <h3>Vista previa de Tencent Hy4</h3>
         <p>Tencent muestra un adelanto de su próxima familia de modelos Hy4, sin fecha de disponibilidad general confirmada aún.</p>
+        <div class="full" hidden>
+          <p>La compañía no confirmó especificaciones de parámetros ni fecha de lanzamiento general. El adelanto se interpreta como una señal de que Tencent sigue invirtiendo en su propia familia de modelos frente a la competencia de Alibaba y otros laboratorios chinos.</p>
+        </div>
         <a class="link" href="https://llm-stats.com/ai-news" target="_blank" rel="noopener">Leer fuente →</a>
       </article>
       <article class="card" style="--cat:var(--cat-modelos)">
         <div class="row1"><span class="source">Cohere</span><span>Jueves</span></div>
         <h3>Cohere Parse v5.0</h3>
         <p>Nueva versión del modelo especializado de Cohere para extracción y estructuración de documentos.</p>
+        <div class="full" hidden>
+          <p>La actualización se enfoca en documentos con estructuras complejas —tablas, formularios y escaneos—, un nicho donde Cohere compite con herramientas especializadas de extracción más que con los modelos generalistas de OpenAI o Google.</p>
+        </div>
         <a class="link" href="https://llm-stats.com/ai-news" target="_blank" rel="noopener">Leer fuente →</a>
       </article>
       <article class="card" style="--cat:var(--cat-modelos)">
@@ -456,6 +485,9 @@
         <div class="row1"><span class="source">Zhipu AI / Alibaba</span><span>26 ago</span></div>
         <h3>GLM-5.3-Flash y variantes Qwen3.8 Flash</h3>
         <p>Ambas compañías chinas amplían su oferta de modelos "flash" de bajo costo y baja latencia en la misma semana.</p>
+        <div class="full" hidden>
+          <p>Ambos lanzamientos responden a la misma lógica: modelos livianos y baratos de ejecutar, pensados para inferencia a gran escala dentro de China, donde el costo por token y la latencia son factores competitivos clave frente a los modelos de bandera.</p>
+        </div>
         <a class="link" href="https://llm-stats.com/ai-news" target="_blank" rel="noopener">Leer fuente →</a>
       </article>
       <article class="card" style="--cat:var(--cat-modelos)">
@@ -463,6 +495,9 @@
         <div class="row1"><span class="source">IBM</span><span>25 ago</span></div>
         <h3>Familia de modelos Granite 4.2</h3>
         <p>IBM continúa su línea Granite orientada a empresas con una actualización 4.2 enfocada en eficiencia y despliegue local.</p>
+        <div class="full" hidden>
+          <p>La familia Granite se distingue por sus licencias abiertas y su foco en despliegue on-premise, una propuesta pensada para clientes empresariales con restricciones regulatorias que no pueden enviar datos a APIs externas.</p>
+        </div>
         <a class="link" href="https://llm-stats.com/ai-news" target="_blank" rel="noopener">Leer fuente →</a>
       </article>
     </div>
@@ -481,6 +516,9 @@
         <div class="row1"><span class="source">Palo Alto Networks</span><span>Hoy</span></div>
         <h3>Adquiere la startup Console por $500M</h3>
         <p>La compra deja a Serval como la principal startup independiente en automatización de servicios de TI impulsada por IA.</p>
+        <div class="full" hidden>
+          <p>Los términos financieros más allá de la cifra de $500 millones no fueron revelados en su totalidad. La operación consolida una tendencia del sector: las grandes plataformas de ciberseguridad prefieren comprar startups de automatización ya probadas antes que construir esas capacidades desde cero.</p>
+        </div>
         <a class="link" href="https://llm-stats.com/ai-news" target="_blank" rel="noopener">Leer fuente →</a>
       </article>
       <article class="card" style="--cat:var(--cat-corp)">
@@ -488,6 +526,9 @@
         <div class="row1"><span class="source">Wonderful AI</span><span>Hoy</span></div>
         <h3>Levanta $550M en Serie C, valuación de $5,000M</h3>
         <p>Insight Partners lidera la ronda para la plataforma de automatización con IA, una de las más grandes de la semana.</p>
+        <div class="full" hidden>
+          <p>Wonderful AI construye agentes de automatización para tareas operativas repetitivas de back office, soporte y procesos administrativos. La ronda, liderada por Insight Partners, la posiciona como una de las startups mejor valuadas del segmento de automatización con IA en lo que va del año.</p>
+        </div>
         <a class="link" href="https://llm-stats.com/ai-news" target="_blank" rel="noopener">Leer fuente →</a>
       </article>
       <article class="card" style="--cat:var(--cat-corp)">
@@ -495,12 +536,18 @@
         <div class="row1"><span class="source">Broadcom</span><span>Hoy</span></div>
         <h3>Ingresos de semiconductores de IA suben 221% interanual</h3>
         <p>Resultados del tercer trimestre: ingresos totales de $29,590M (+86% interanual); la división de IA alcanza $16,700M.</p>
+        <div class="full" hidden>
+          <p>El salto del 221% interanual en la división de IA confirma que la demanda de chips personalizados (ASICs) para entrenamiento e inferencia sigue superando a la oferta, beneficiando a Broadcom como proveedor clave de varios hyperscalers que diseñan su propio silicio de IA.</p>
+        </div>
         <a class="link" href="https://llm-stats.com/ai-news" target="_blank" rel="noopener">Leer fuente →</a>
       </article>
       <article class="card" style="--cat:var(--cat-corp)">
         <div class="row1"><span class="source">Sector</span><span>Hoy</span></div>
         <h3>La IA de frontera entra de lleno en ciberseguridad</h3>
         <p>Una plataforma importante lanza un nuevo laboratorio de "superinteligencia cibernética" dedicado a detección y defensa automatizadas.</p>
+        <div class="full" hidden>
+          <p>El laboratorio busca automatizar tanto la detección de vulnerabilidades como la respuesta a incidentes en tiempo real, un área donde la velocidad de los ataques asistidos por IA ha superado la capacidad de los equipos humanos de seguridad para reaccionar manualmente.</p>
+        </div>
         <a class="link" href="https://llm-stats.com/ai-news" target="_blank" rel="noopener">Leer fuente →</a>
       </article>
     </div>
@@ -519,6 +566,9 @@
         <div class="row1"><span class="source">Blossom Health (NY)</span><span>Sep 2026</span></div>
         <h3>Ransomware expone ~29,600 registros de pacientes</h3>
         <p>Los atacantes exigen $30,000 antes del 4 de septiembre. Datos expuestos: nombres completos, teléfonos, direcciones y fechas de nacimiento.</p>
+        <div class="full" hidden>
+          <p>Blossom Health es un proveedor de telesalud especializado en salud mental. Los atacantes accedieron a más de 29,600 registros de clientes con nombres completos, teléfonos, direcciones y fechas de nacimiento, además de documentos internos sensibles de la compañía, y fijaron el pago del rescate en bitcoin con vencimiento el 4 de septiembre.</p>
+        </div>
         <a class="link" href="https://sharkstriker.com/blog/september-2026-data-breaches/" target="_blank" rel="noopener">Leer fuente →</a>
       </article>
       <article class="card" style="--cat:var(--cat-seg)">
@@ -526,6 +576,9 @@
         <div class="row1"><span class="source">Italtel (Milán)</span><span>Sep 2026</span></div>
         <h3>Telecom italiana comprometida por el grupo Everest</h3>
         <p>La naturaleza y el volumen exacto de los datos filtrados siguen bajo investigación.</p>
+        <div class="full" hidden>
+          <p>Italtel es una compañía de telecomunicaciones fundada en 1921 que presta servicios a los sectores de medios, energía, transporte y salud digital. El grupo Everest se atribuyó el ataque; la naturaleza y el volumen exacto de los datos comprometidos sigue bajo investigación.</p>
+        </div>
         <a class="link" href="https://sharkstriker.com/blog/september-2026-data-breaches/" target="_blank" rel="noopener">Leer fuente →</a>
       </article>
       <article class="card" style="--cat:var(--cat-seg)">
@@ -533,6 +586,9 @@
         <div class="row1"><span class="source">THQ Nordic</span><span>Sep 2026</span></div>
         <h3>Editora de videojuegos atacada por el grupo Direwolf</h3>
         <p>La compañía confirma el incidente; aún evalúa el alcance de los datos comprometidos.</p>
+        <div class="full" hidden>
+          <p>THQ Nordic es una editora austriaca de videojuegos que forma parte de Embracer Group y se especializa en títulos con licencia. El grupo Direwolf reclamó la autoría del ataque; la compañía confirmó el incidente pero aún no precisó qué datos fueron comprometidos.</p>
+        </div>
         <a class="link" href="https://sharkstriker.com/blog/september-2026-data-breaches/" target="_blank" rel="noopener">Leer fuente →</a>
       </article>
       <article class="card" style="--cat:var(--cat-seg)">
@@ -540,6 +596,9 @@
         <div class="row1"><span class="source">Gale Credit Union (IL)</span><span>Sep 2026</span></div>
         <h3>Cooperativa financiera atacada por el grupo Akira</h3>
         <p>El alcance de la exposición de datos financieros de socios sigue bajo investigación.</p>
+        <div class="full" hidden>
+          <p>Gale Credit Union es una cooperativa financiera de Illinois que ofrece hipotecas y préstamos estudiantiles en varios condados. El grupo Akira se adjudicó el ataque; el alcance de la exposición de datos financieros de sus socios continúa bajo investigación.</p>
+        </div>
         <a class="link" href="https://sharkstriker.com/blog/september-2026-data-breaches/" target="_blank" rel="noopener">Leer fuente →</a>
       </article>
     </div>
@@ -558,6 +617,9 @@
         <div class="row1"><span class="source">Nvidia</span><span>Hoy</span></div>
         <h3>Jensen Huang pide al G20 construir más centros de datos</h3>
         <p>El CEO de Nvidia insta a los ministros del G20 a acelerar la infraestructura física necesaria para sostener la expansión de la IA.</p>
+        <div class="full" hidden>
+          <p>Huang argumentó que la disponibilidad de GPUs ya no es el principal cuello de botella para escalar la IA, sino la energía y la infraestructura física —centros de datos, refrigeración y redes eléctricas— necesaria para alojarlas, un llamado dirigido a gobiernos para acelerar permisos e inversión en esa infraestructura.</p>
+        </div>
         <a class="link" href="https://llm-stats.com/ai-news" target="_blank" rel="noopener">Leer fuente →</a>
       </article>
       <article class="card" style="--cat:var(--cat-hw)">
@@ -565,6 +627,9 @@
         <div class="row1"><span class="source">Nvidia</span><span>Recap</span></div>
         <h3>RTX Spark Superchip: CPU Arm + GPU Blackwell + 128GB unificados</h3>
         <p>La nueva plataforma para laptops y escritorio busca convertir Windows en un "OS agéntico" apto para IA local.</p>
+        <div class="full" hidden>
+          <p>El superchip combina un procesador Arm con una GPU Blackwell y 128GB de memoria unificada compartida entre ambos, evitando mover datos entre CPU y GPU por separado. La idea de un "OS agéntico" apunta a que Windows pueda ejecutar de forma local agentes de IA que operen el sistema —abrir aplicaciones, mover archivos, automatizar tareas— sin depender de la nube.</p>
+        </div>
         <a class="link" href="https://www.tomshardware.com/laptops/nvidia-unveils-rtx-spark-superchip-at-computex-2026-new-platform-promises-to-turn-windows-into-an-agentic-ai-os-with-arm-cpu-blackwell-gpu-and-128gb-unified-memory" target="_blank" rel="noopener">Leer fuente →</a>
       </article>
     </div>
@@ -583,6 +648,9 @@
         <div class="row1"><span class="source">Estados Unidos</span><span>Hoy</span></div>
         <h3>Washington promueve los "Carolina Principles" en el G20</h3>
         <p>El asesor Michael Kratsios defiende evitar reglas específicas de tecnología, marcando una postura de desregulación frente a la UE.</p>
+        <div class="full" hidden>
+          <p>La reunión ministerial de innovación del G20 se realizó el 1 de septiembre en Chapel Hill, Carolina del Norte, donde Kratsios defendió los principios con esta frase: "Policymakers do not need to approach each innovation in isolation and should not treat every emerging technology as a first-of-its-kind policy problem." Elon Musk respaldó la postura, contrastando que en EE.UU. "lo nuevo debería ser legal por defecto", mientras que en Europa "todo es ilegal por defecto".</p>
+        </div>
         <a class="link" href="https://www.aljazeera.com/news/2026/9/2/us-pushes-looser-approach-to-ai-regulation-while-eu-pushes-new-law" target="_blank" rel="noopener">Leer fuente →</a>
       </article>
       <article class="card" style="--cat:var(--cat-reg)">
@@ -590,6 +658,9 @@
         <div class="row1"><span class="source">Unión Europea</span><span>Hoy</span></div>
         <h3>Bruselas exige información a más de 30 empresas de IA</h3>
         <p>La Comisión Europea intensifica la vigilancia del cumplimiento del AI Act sobre actividades de alto riesgo y transparencia.</p>
+        <div class="full" hidden>
+          <p>Las solicitudes de información —un paso preliminar antes de eventuales investigaciones formales— se concentran en dos ejes: seguridad de los sistemas y cumplimiento de derechos de autor, dos de los pilares centrales de la AI Act.</p>
+        </div>
         <a class="link" href="https://www.aljazeera.com/news/2026/9/2/us-pushes-looser-approach-to-ai-regulation-while-eu-pushes-new-law" target="_blank" rel="noopener">Leer fuente →</a>
       </article>
       <article class="card" style="--cat:var(--cat-reg)">
@@ -597,6 +668,9 @@
         <div class="row1"><span class="source">OpenAI / Congreso EE.UU.</span><span>Hoy</span></div>
         <h3>OpenAI confirma que desarrolla apagado automatizado</h3>
         <p>La revelación llega en una carta dirigida a demócratas de la Cámara de Representantes sobre controles de seguridad en sus sistemas.</p>
+        <div class="full" hidden>
+          <p>La carta detalla los mecanismos de apagado que la compañía dice tener en desarrollo para intervenir sobre sus sistemas en caso de comportamiento no deseado, en respuesta a preguntas de legisladores sobre controles de seguridad internos.</p>
+        </div>
         <a class="link" href="https://llm-stats.com/ai-news" target="_blank" rel="noopener">Leer fuente →</a>
       </article>
     </div>
@@ -615,12 +689,18 @@
         <div class="row1"><span class="source">OpenAI</span><span>Hoy</span></div>
         <h3>El modelo Astra y su razonamiento de "profundidad recurrente"</h3>
         <p>La técnica genera preocupación entre investigadores de seguridad por cómo afecta la interpretabilidad del razonamiento del modelo.</p>
+        <div class="full" hidden>
+          <p>El enfoque de "razonamiento de profundidad recurrente" reprocesa internamente las propias inferencias del modelo antes de responder, lo que dificulta trazar por qué llegó a una conclusión determinada —un problema conocido como falta de interpretabilidad, central en la carta de OpenAI sobre mecanismos de apagado automatizado.</p>
+        </div>
         <a class="link" href="https://llm-stats.com/ai-news" target="_blank" rel="noopener">Leer fuente →</a>
       </article>
       <article class="card" style="--cat:var(--cat-dev)">
         <div class="row1"><span class="source">Investigación</span><span>Hoy</span></div>
         <h3>Método TOHA para detectar alucinaciones en RAG</h3>
         <p>Un nuevo enfoque busca identificar alucinaciones en modelos de lenguaje que usan recuperación aumentada (RAG) con mayor precisión.</p>
+        <div class="full" hidden>
+          <p>TOHA evalúa la consistencia entre lo que el modelo recupera de sus fuentes y lo que efectivamente escribe en la respuesta, en lugar de solo comparar la respuesta final contra una referencia —un enfoque que, según sus autores, reduce falsos negativos en alucinaciones sutiles donde el modelo mezcla información real con inferencias no respaldadas.</p>
+        </div>
         <a class="link" href="https://llm-stats.com/ai-news" target="_blank" rel="noopener">Leer fuente →</a>
       </article>
       <article class="card" style="--cat:var(--cat-dev)">
@@ -628,6 +708,9 @@
         <div class="row1"><span class="source">OpenAI / AWS</span><span>Hoy</span></div>
         <h3>Modelos de OpenAI llegan a Amazon Bedrock en Australia</h3>
         <p>La disponibilidad regional se suma a inferencia cross-region global, ampliando opciones de despliegue para equipos de desarrollo.</p>
+        <div class="full" hidden>
+          <p>La expansión a la región de Australia se suma a la inferencia cross-region ya disponible, permitiendo a equipos locales cumplir con requisitos de residencia de datos sin sacrificar acceso a los modelos más recientes de OpenAI dentro del ecosistema de Bedrock.</p>
+        </div>
         <a class="link" href="https://llm-stats.com/ai-news" target="_blank" rel="noopener">Leer fuente →</a>
       </article>
     </div>
@@ -657,14 +740,16 @@
 
 <dialog id="story-modal" class="story-modal">
   <button class="modal-close" type="button" aria-label="Cerrar">✕</button>
-  <div class="modal-thumb" id="modal-thumb"><img id="modal-img" src="" alt=""></div>
-  <div class="modal-body">
-    <span class="modal-kicker" id="modal-kicker"></span>
-    <h2 id="modal-title"></h2>
-    <p class="modal-desc" id="modal-desc"></p>
-    <div class="modal-meta">
-      <span id="modal-source"></span>
-      <a class="modal-link" id="modal-link" href="#" target="_blank" rel="noopener">Leer fuente ↗</a>
+  <div class="modal-scroll">
+    <div class="modal-thumb" id="modal-thumb"><img id="modal-img" src="" alt=""></div>
+    <div class="modal-body">
+      <span class="modal-kicker" id="modal-kicker"></span>
+      <h2 id="modal-title"></h2>
+      <div class="modal-desc" id="modal-desc"></div>
+      <div class="modal-meta">
+        <span id="modal-source"></span>
+        <a class="modal-link" id="modal-link" href="#" target="_blank" rel="noopener">Leer fuente ↗</a>
+      </div>
     </div>
   </div>
 </dialog>
@@ -752,8 +837,9 @@
       modalKicker.textContent = categoryLabel(item);
       var h3 = item.querySelector('h3');
       modalTitle.textContent = h3 ? h3.textContent : '';
-      var p = item.querySelector('p');
-      modalDesc.textContent = p ? p.textContent : '';
+      var full = item.querySelector(':scope > .full');
+      var p = item.querySelector(':scope > p');
+      modalDesc.innerHTML = full ? full.innerHTML : (p ? '<p>' + p.textContent + '</p>' : '');
       modalSource.textContent = sourceLine(item);
       var link = item.querySelector('.src a, .link');
       if(link){

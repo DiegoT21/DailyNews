@@ -23,3 +23,14 @@ Cada boletín (`.bulletin`) y tarjeta (`.card`) puede incluir una imagen opciona
 ```
 
 Se usan imágenes reales y estables (fotos de sede, logos, banderas) alojadas en Wikimedia Commons (`upload.wikimedia.org` / `thumb.wikimedia.org`) en vez de placeholders genéricos. El `onerror` retira el bloque de imagen si la URL deja de estar disponible, así una nota sin imagen no rompe el diseño.
+
+Al hacer click (o Enter/Espacio) sobre un boletín o tarjeta se abre un modal (`<dialog id="story-modal">`) con la noticia completa. El párrafo corto visible en la tarjeta se mantiene para el listado; para el modal, cada boletín/tarjeta puede incluir un bloque opcional con más contexto (cifras, citas, antecedentes) que solo se muestra ahí:
+
+```html
+<p>Resumen corto que se ve en la tarjeta.</p>
+<div class="full" hidden>
+  <p>Párrafo(s) con más contexto — solo aparecen al expandir la noticia.</p>
+</div>
+```
+
+Si una nota no tiene `.full`, el modal simplemente repite el párrafo corto de la tarjeta.
