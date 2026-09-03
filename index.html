@@ -1,0 +1,603 @@
+<!doctype html>
+<title>Despacho Diario</title>
+<meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f2f4f7;
+    --surface:#ffffff;
+    --surface-2:#eaedf2;
+    --border:#d7dce3;
+    --text:#14171c;
+    --text-dim:#5b6472;
+    --text-faint:#8891a0;
+    --accent:#a86a08;
+    --accent-ink:#ffffff;
+    --cat-modelos:#2f5fd6;
+    --cat-corp:#8347c9;
+    --cat-seg:#c9223f;
+    --cat-hw:#0f8f7e;
+    --cat-reg:#4c6079;
+    --cat-dev:#3f7a16;
+    --shadow: 0 1px 2px rgba(20,23,28,.06), 0 8px 24px -12px rgba(20,23,28,.12);
+    --rule-img: linear-gradient(90deg, var(--accent), transparent 85%);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#0a0c10;
+      --surface:#12151b;
+      --surface-2:#181c24;
+      --border:#272c37;
+      --text:#e7e9ee;
+      --text-dim:#9aa3b1;
+      --text-faint:#6c7482;
+      --accent:#ffb020;
+      --accent-ink:#1a1200;
+      --cat-modelos:#7fa2ff;
+      --cat-corp:#caa3ff;
+      --cat-seg:#ff6b7f;
+      --cat-hw:#4fd6c4;
+      --cat-reg:#a3b6d1;
+      --cat-dev:#a6dc6c;
+      --shadow: 0 1px 2px rgba(0,0,0,.4), 0 12px 28px -14px rgba(0,0,0,.6);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#0a0c10;
+    --surface:#12151b;
+    --surface-2:#181c24;
+    --border:#272c37;
+    --text:#e7e9ee;
+    --text-dim:#9aa3b1;
+    --text-faint:#6c7482;
+    --accent:#ffb020;
+    --accent-ink:#1a1200;
+    --cat-modelos:#7fa2ff;
+    --cat-corp:#caa3ff;
+    --cat-seg:#ff6b7f;
+    --cat-hw:#4fd6c4;
+    --cat-reg:#a3b6d1;
+    --cat-dev:#a6dc6c;
+    --shadow: 0 1px 2px rgba(0,0,0,.4), 0 12px 28px -14px rgba(0,0,0,.6);
+  }
+
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Source Sans 3', ui-sans-serif, system-ui, sans-serif;
+    font-size:16px;
+    line-height:1.5;
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:.001ms !important; transition-duration:.001ms !important;}
+  }
+
+  a{color:inherit;}
+  .mono{font-family:'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;}
+
+  /* ---------- Masthead ---------- */
+  .masthead{
+    border-bottom:1px solid var(--border);
+    background:var(--surface);
+  }
+  .masthead-rule{ height:3px; background:var(--rule-img); }
+  .masthead-inner{
+    max-width:1180px;
+    margin:0 auto;
+    padding:22px 28px 20px;
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    gap:24px;
+    flex-wrap:wrap;
+  }
+  .brand{ display:flex; flex-direction:column; gap:6px; }
+  .brand-name{
+    font-family:'JetBrains Mono', monospace;
+    font-weight:800;
+    font-size:26px;
+    letter-spacing:.02em;
+    text-transform:uppercase;
+    margin:0;
+  }
+  .brand-name span{ color:var(--accent); }
+  .brand-tag{
+    margin:0; color:var(--text-dim); font-size:14px;
+    letter-spacing:.03em;
+  }
+  .masthead-meta{
+    text-align:right;
+    display:flex; flex-direction:column; gap:4px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:12.5px;
+    color:var(--text-dim);
+  }
+  .masthead-meta .date{ color:var(--text); font-weight:600; text-transform:capitalize; }
+  .live-dot{
+    display:inline-block; width:7px; height:7px; border-radius:50%;
+    background:#2fbf6a; margin-right:6px; vertical-align:1px;
+    box-shadow:0 0 0 3px color-mix(in srgb, #2fbf6a 25%, transparent);
+  }
+
+  /* ---------- Filter bar ---------- */
+  .filterbar{
+    position:sticky; top:0; z-index:5;
+    background:var(--bg);
+    border-bottom:1px solid var(--border);
+  }
+  .filterbar-inner{
+    max-width:1180px; margin:0 auto;
+    padding:12px 28px;
+    display:flex; gap:8px; flex-wrap:wrap; align-items:center;
+  }
+  .filterbar-label{
+    font-family:'JetBrains Mono', monospace; font-size:11px;
+    text-transform:uppercase; letter-spacing:.08em; color:var(--text-faint);
+    margin-right:4px;
+  }
+  .chip{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12.5px;
+    border:1px solid var(--border);
+    background:var(--surface);
+    color:var(--text-dim);
+    padding:6px 12px;
+    border-radius:100px;
+    cursor:pointer;
+    display:inline-flex; align-items:center; gap:7px;
+    transition:border-color .15s ease, color .15s ease, background .15s ease;
+  }
+  .chip:hover{ border-color:var(--text-faint); color:var(--text); }
+  .chip:focus-visible{ outline:2px solid var(--accent); outline-offset:2px; }
+  .chip .dot{ width:8px; height:8px; border-radius:50%; background:var(--dot); }
+  .chip[aria-pressed="true"]{
+    background:color-mix(in srgb, var(--dot) 16%, var(--surface));
+    border-color:var(--dot);
+    color:var(--text);
+  }
+  .chip.all[aria-pressed="true"]{
+    background:var(--accent); border-color:var(--accent); color:var(--accent-ink);
+  }
+
+  /* ---------- Layout ---------- */
+  main{ max-width:1180px; margin:0 auto; padding:28px 28px 12px; }
+
+  /* ---------- Bulletins ---------- */
+  .bulletins-head{
+    display:flex; align-items:baseline; gap:10px; margin:6px 0 14px;
+  }
+  .bulletins-head h2{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px; text-transform:uppercase; letter-spacing:.09em;
+    color:var(--accent); margin:0; font-weight:700;
+  }
+  .bulletins-head .rule{ flex:1; height:1px; background:var(--border); }
+  .bulletins{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));
+    gap:14px;
+    margin-bottom:40px;
+  }
+  .bulletin{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-top:3px solid var(--accent);
+    border-radius:10px;
+    padding:18px 20px 20px;
+    box-shadow:var(--shadow);
+    display:flex; flex-direction:column; gap:10px;
+  }
+  .bulletin .kicker{
+    font-family:'JetBrains Mono', monospace; font-size:11px;
+    letter-spacing:.08em; text-transform:uppercase; color:var(--cat, var(--accent));
+    font-weight:700;
+  }
+  .bulletin h3{
+    font-family:'Source Serif 4', Georgia, serif;
+    font-size:20px; line-height:1.28; margin:0; font-weight:700;
+    text-wrap:balance;
+  }
+  .bulletin p{ margin:0; color:var(--text-dim); font-size:14.5px; line-height:1.55; }
+  .bulletin .src{
+    margin-top:auto; padding-top:6px;
+    font-family:'JetBrains Mono', monospace; font-size:11.5px; color:var(--text-faint);
+  }
+  .bulletin .src a{ color:var(--text-dim); text-decoration:none; border-bottom:1px solid var(--border); }
+  .bulletin .src a:hover{ color:var(--accent); border-color:var(--accent); }
+
+  /* ---------- Sections ---------- */
+  section.category{ margin-bottom:38px; }
+  .cat-head{
+    display:flex; align-items:center; gap:12px; margin-bottom:14px;
+  }
+  .cat-head .swatch{ width:11px; height:11px; border-radius:3px; background:var(--cat); flex:none; }
+  .cat-head h2{
+    font-family:'Source Serif 4', Georgia, serif;
+    font-size:21px; margin:0; font-weight:700;
+  }
+  .cat-head .count{
+    font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--text-faint);
+  }
+  .cat-head .rule{ flex:1; height:1px; background:var(--border); }
+
+  .cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(300px, 1fr));
+    gap:14px;
+  }
+  article.card{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-left:3px solid var(--cat);
+    border-radius:8px;
+    padding:15px 17px 16px;
+    display:flex; flex-direction:column; gap:8px;
+  }
+  .card .row1{
+    display:flex; justify-content:space-between; gap:10px;
+    font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--text-faint);
+    text-transform:uppercase; letter-spacing:.04em;
+  }
+  .card .row1 .source{ color:var(--text-dim); font-weight:600; }
+  .card h3{
+    font-family:'Source Serif 4', Georgia, serif;
+    font-size:17px; line-height:1.32; margin:0; font-weight:600;
+    text-wrap:balance;
+  }
+  .card p{ margin:0; color:var(--text-dim); font-size:14px; line-height:1.55; }
+  .card .link{
+    margin-top:4px;
+    font-family:'JetBrains Mono', monospace; font-size:11.5px;
+    color:var(--text-faint); text-decoration:none;
+    display:inline-flex; align-items:center; gap:4px;
+    width:fit-content;
+  }
+  .card .link:hover{ color:var(--accent); }
+
+  [hidden]{ display:none !important; }
+
+  /* ---------- Footer ---------- */
+  footer{
+    max-width:1180px; margin:20px auto 0; padding:26px 28px 40px;
+    border-top:1px solid var(--border);
+  }
+  .footer-grid{
+    display:grid; grid-template-columns:1.3fr 1fr; gap:32px;
+  }
+  @media (max-width:640px){ .footer-grid{ grid-template-columns:1fr; } }
+  footer h4{
+    font-family:'JetBrains Mono', monospace; font-size:11px;
+    text-transform:uppercase; letter-spacing:.08em; color:var(--text-faint);
+    margin:0 0 10px;
+  }
+  footer p{ margin:0 0 8px; color:var(--text-dim); font-size:13.5px; line-height:1.6; }
+  .sources-list{ columns:2; column-gap:20px; font-size:12.5px; color:var(--text-faint); }
+  .sources-list a{ color:var(--text-faint); text-decoration:none; }
+  .sources-list a:hover{ color:var(--accent); }
+  .sources-list li{ margin-bottom:6px; break-inside:avoid; }
+  .next-run{
+    font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--text-dim);
+    display:inline-flex; align-items:center; gap:8px;
+    border:1px dashed var(--border); padding:8px 12px; border-radius:8px; margin-top:6px;
+  }
+</style>
+
+<div class="masthead">
+  <div class="masthead-inner">
+    <div class="brand">
+      <p class="brand-name">Despacho <span>Diario</span></p>
+      <p class="brand-tag">Inteligencia artificial · tecnología · computación · programación — un resumen al día</p>
+    </div>
+    <div class="masthead-meta">
+      <span class="date" id="today-date">jueves, 3 de septiembre de 2026</span>
+      <span><span class="live-dot"></span>Última actualización: 3 sep 2026, 7:00 a.m. (Panamá)</span>
+      <span>Próxima edición: mañana, 7:00 a.m.</span>
+    </div>
+  </div>
+  <div class="masthead-rule"></div>
+</div>
+
+<div class="filterbar">
+  <div class="filterbar-inner" id="filterbar">
+    <span class="filterbar-label">Filtrar</span>
+    <button class="chip all" data-filter="all" aria-pressed="true">Todo</button>
+    <button class="chip" data-filter="modelos" style="--dot:var(--cat-modelos)" aria-pressed="false"><span class="dot"></span>Modelos</button>
+    <button class="chip" data-filter="corp" style="--dot:var(--cat-corp)" aria-pressed="false"><span class="dot"></span>Corporativo</button>
+    <button class="chip" data-filter="seg" style="--dot:var(--cat-seg)" aria-pressed="false"><span class="dot"></span>Seguridad</button>
+    <button class="chip" data-filter="hw" style="--dot:var(--cat-hw)" aria-pressed="false"><span class="dot"></span>Hardware</button>
+    <button class="chip" data-filter="reg" style="--dot:var(--cat-reg)" aria-pressed="false"><span class="dot"></span>Regulación</button>
+    <button class="chip" data-filter="dev" style="--dot:var(--cat-dev)" aria-pressed="false"><span class="dot"></span>Programación</button>
+  </div>
+</div>
+
+<main>
+
+  <div class="bulletins-head">
+    <h2>Lo más urgente hoy</h2>
+    <div class="rule"></div>
+  </div>
+  <div class="bulletins">
+    <div class="bulletin" style="--cat:var(--cat-reg)">
+      <span class="kicker">Regulación</span>
+      <h3>La UE pide cuentas a más de 30 empresas de IA mientras EE.UU. impulsa la desregulación</h3>
+      <p>La Comisión Europea envió solicitudes formales de información a más de 30 compañías de IA para verificar el cumplimiento del AI Act, justo cuando el asesor de Trump, Michael Kratsios, promovía en el G20 los "Carolina Principles", que evitan reglas específicas para la tecnología.</p>
+      <span class="src">Al Jazeera — <a href="https://www.aljazeera.com/news/2026/9/2/us-pushes-looser-approach-to-ai-regulation-while-eu-pushes-new-law" target="_blank" rel="noopener">leer fuente ↗</a></span>
+    </div>
+    <div class="bulletin" style="--cat:var(--cat-dev)">
+      <span class="kicker">Seguridad de modelos</span>
+      <h3>OpenAI dice estar construyendo un apagado automatizado para sus sistemas de IA</h3>
+      <p>En una carta a demócratas de la Cámara de Representantes, OpenAI reveló que desarrolla mecanismos de apagado automatizado. Al mismo tiempo, expertos cuestionan el razonamiento de "profundidad recurrente" de su modelo Astra.</p>
+      <span class="src">Cobertura sectorial — ver categoría Programación</span>
+    </div>
+    <div class="bulletin" style="--cat:var(--cat-corp)">
+      <span class="kicker">Corporativo</span>
+      <h3>Palo Alto Networks compra la startup Console por 500 millones de dólares</h3>
+      <p>La adquisición deja a Serval como la startup líder restante en automatización de servicios de TI con IA, en un día también marcado por resultados trimestrales récord de Broadcom en semiconductores de IA.</p>
+      <span class="src">TechCrunch Disrupt / cobertura sectorial — ver categoría Corporativo</span>
+    </div>
+  </div>
+
+  <section class="category" data-cat="modelos">
+    <div class="cat-head">
+      <span class="swatch" style="--cat:var(--cat-modelos)"></span>
+      <h2>Modelos &amp; lanzamientos</h2>
+      <span class="count">6 historias</span>
+      <div class="rule"></div>
+    </div>
+    <div class="cards">
+      <article class="card" style="--cat:var(--cat-modelos)">
+        <div class="row1"><span class="source">Google</span><span>Hoy</span></div>
+        <h3>Gemini 3.8 Flash y Gemini 3.8 Flash Cyber</h3>
+        <p>Google lanza dos nuevas variantes de su familia Flash; la versión "Cyber" está orientada a tareas de ciberseguridad y análisis de amenazas.</p>
+        <a class="link" href="https://llm-stats.com/ai-news" target="_blank" rel="noopener">Leer fuente →</a>
+      </article>
+      <article class="card" style="--cat:var(--cat-modelos)">
+        <div class="row1"><span class="source">Anthropic</span><span>Ayer</span></div>
+        <h3>Claude Fable 5.1 reduce el costo de lectura de caché a $0.25</h3>
+        <p>La actualización incluye un recorte de precio en las lecturas de caché, abaratando el uso intensivo del modelo en aplicaciones de producción.</p>
+        <a class="link" href="https://llm-stats.com/ai-news" target="_blank" rel="noopener">Leer fuente →</a>
+      </article>
+      <article class="card" style="--cat:var(--cat-modelos)">
+        <div class="row1"><span class="source">Tencent</span><span>Viernes</span></div>
+        <h3>Vista previa de Tencent Hy4</h3>
+        <p>Tencent muestra un adelanto de su próxima familia de modelos Hy4, sin fecha de disponibilidad general confirmada aún.</p>
+        <a class="link" href="https://llm-stats.com/ai-news" target="_blank" rel="noopener">Leer fuente →</a>
+      </article>
+      <article class="card" style="--cat:var(--cat-modelos)">
+        <div class="row1"><span class="source">Cohere</span><span>Jueves</span></div>
+        <h3>Cohere Parse v5.0</h3>
+        <p>Nueva versión del modelo especializado de Cohere para extracción y estructuración de documentos.</p>
+        <a class="link" href="https://llm-stats.com/ai-news" target="_blank" rel="noopener">Leer fuente →</a>
+      </article>
+      <article class="card" style="--cat:var(--cat-modelos)">
+        <div class="row1"><span class="source">Zhipu AI / Alibaba</span><span>26 ago</span></div>
+        <h3>GLM-5.3-Flash y variantes Qwen3.8 Flash</h3>
+        <p>Ambas compañías chinas amplían su oferta de modelos "flash" de bajo costo y baja latencia en la misma semana.</p>
+        <a class="link" href="https://llm-stats.com/ai-news" target="_blank" rel="noopener">Leer fuente →</a>
+      </article>
+      <article class="card" style="--cat:var(--cat-modelos)">
+        <div class="row1"><span class="source">IBM</span><span>25 ago</span></div>
+        <h3>Familia de modelos Granite 4.2</h3>
+        <p>IBM continúa su línea Granite orientada a empresas con una actualización 4.2 enfocada en eficiencia y despliegue local.</p>
+        <a class="link" href="https://llm-stats.com/ai-news" target="_blank" rel="noopener">Leer fuente →</a>
+      </article>
+    </div>
+  </section>
+
+  <section class="category" data-cat="corp">
+    <div class="cat-head">
+      <span class="swatch" style="--cat:var(--cat-corp)"></span>
+      <h2>Movimientos corporativos &amp; negocios</h2>
+      <span class="count">4 historias</span>
+      <div class="rule"></div>
+    </div>
+    <div class="cards">
+      <article class="card" style="--cat:var(--cat-corp)">
+        <div class="row1"><span class="source">Palo Alto Networks</span><span>Hoy</span></div>
+        <h3>Adquiere la startup Console por $500M</h3>
+        <p>La compra deja a Serval como la principal startup independiente en automatización de servicios de TI impulsada por IA.</p>
+        <a class="link" href="https://llm-stats.com/ai-news" target="_blank" rel="noopener">Leer fuente →</a>
+      </article>
+      <article class="card" style="--cat:var(--cat-corp)">
+        <div class="row1"><span class="source">Wonderful AI</span><span>Hoy</span></div>
+        <h3>Levanta $550M en Serie C, valuación de $5,000M</h3>
+        <p>Insight Partners lidera la ronda para la plataforma de automatización con IA, una de las más grandes de la semana.</p>
+        <a class="link" href="https://llm-stats.com/ai-news" target="_blank" rel="noopener">Leer fuente →</a>
+      </article>
+      <article class="card" style="--cat:var(--cat-corp)">
+        <div class="row1"><span class="source">Broadcom</span><span>Hoy</span></div>
+        <h3>Ingresos de semiconductores de IA suben 221% interanual</h3>
+        <p>Resultados del tercer trimestre: ingresos totales de $29,590M (+86% interanual); la división de IA alcanza $16,700M.</p>
+        <a class="link" href="https://llm-stats.com/ai-news" target="_blank" rel="noopener">Leer fuente →</a>
+      </article>
+      <article class="card" style="--cat:var(--cat-corp)">
+        <div class="row1"><span class="source">Sector</span><span>Hoy</span></div>
+        <h3>La IA de frontera entra de lleno en ciberseguridad</h3>
+        <p>Una plataforma importante lanza un nuevo laboratorio de "superinteligencia cibernética" dedicado a detección y defensa automatizadas.</p>
+        <a class="link" href="https://llm-stats.com/ai-news" target="_blank" rel="noopener">Leer fuente →</a>
+      </article>
+    </div>
+  </section>
+
+  <section class="category" data-cat="seg">
+    <div class="cat-head">
+      <span class="swatch" style="--cat:var(--cat-seg)"></span>
+      <h2>Seguridad &amp; brechas de datos</h2>
+      <span class="count">4 historias</span>
+      <div class="rule"></div>
+    </div>
+    <div class="cards">
+      <article class="card" style="--cat:var(--cat-seg)">
+        <div class="row1"><span class="source">Blossom Health (NY)</span><span>Sep 2026</span></div>
+        <h3>Ransomware expone ~29,600 registros de pacientes</h3>
+        <p>Los atacantes exigen $30,000 antes del 4 de septiembre. Datos expuestos: nombres completos, teléfonos, direcciones y fechas de nacimiento.</p>
+        <a class="link" href="https://sharkstriker.com/blog/september-2026-data-breaches/" target="_blank" rel="noopener">Leer fuente →</a>
+      </article>
+      <article class="card" style="--cat:var(--cat-seg)">
+        <div class="row1"><span class="source">Italtel (Milán)</span><span>Sep 2026</span></div>
+        <h3>Telecom italiana comprometida por el grupo Everest</h3>
+        <p>La naturaleza y el volumen exacto de los datos filtrados siguen bajo investigación.</p>
+        <a class="link" href="https://sharkstriker.com/blog/september-2026-data-breaches/" target="_blank" rel="noopener">Leer fuente →</a>
+      </article>
+      <article class="card" style="--cat:var(--cat-seg)">
+        <div class="row1"><span class="source">THQ Nordic</span><span>Sep 2026</span></div>
+        <h3>Editora de videojuegos atacada por el grupo Direwolf</h3>
+        <p>La compañía confirma el incidente; aún evalúa el alcance de los datos comprometidos.</p>
+        <a class="link" href="https://sharkstriker.com/blog/september-2026-data-breaches/" target="_blank" rel="noopener">Leer fuente →</a>
+      </article>
+      <article class="card" style="--cat:var(--cat-seg)">
+        <div class="row1"><span class="source">Gale Credit Union (IL)</span><span>Sep 2026</span></div>
+        <h3>Cooperativa financiera atacada por el grupo Akira</h3>
+        <p>El alcance de la exposición de datos financieros de socios sigue bajo investigación.</p>
+        <a class="link" href="https://sharkstriker.com/blog/september-2026-data-breaches/" target="_blank" rel="noopener">Leer fuente →</a>
+      </article>
+    </div>
+  </section>
+
+  <section class="category" data-cat="hw">
+    <div class="cat-head">
+      <span class="swatch" style="--cat:var(--cat-hw)"></span>
+      <h2>Hardware</h2>
+      <span class="count">2 historias</span>
+      <div class="rule"></div>
+    </div>
+    <div class="cards">
+      <article class="card" style="--cat:var(--cat-hw)">
+        <div class="row1"><span class="source">Nvidia</span><span>Hoy</span></div>
+        <h3>Jensen Huang pide al G20 construir más centros de datos</h3>
+        <p>El CEO de Nvidia insta a los ministros del G20 a acelerar la infraestructura física necesaria para sostener la expansión de la IA.</p>
+        <a class="link" href="https://llm-stats.com/ai-news" target="_blank" rel="noopener">Leer fuente →</a>
+      </article>
+      <article class="card" style="--cat:var(--cat-hw)">
+        <div class="row1"><span class="source">Nvidia</span><span>Recap</span></div>
+        <h3>RTX Spark Superchip: CPU Arm + GPU Blackwell + 128GB unificados</h3>
+        <p>La nueva plataforma para laptops y escritorio busca convertir Windows en un "OS agéntico" apto para IA local.</p>
+        <a class="link" href="https://www.tomshardware.com/laptops/nvidia-unveils-rtx-spark-superchip-at-computex-2026-new-platform-promises-to-turn-windows-into-an-agentic-ai-os-with-arm-cpu-blackwell-gpu-and-128gb-unified-memory" target="_blank" rel="noopener">Leer fuente →</a>
+      </article>
+    </div>
+  </section>
+
+  <section class="category" data-cat="reg">
+    <div class="cat-head">
+      <span class="swatch" style="--cat:var(--cat-reg)"></span>
+      <h2>Regulación &amp; políticas</h2>
+      <span class="count">3 historias</span>
+      <div class="rule"></div>
+    </div>
+    <div class="cards">
+      <article class="card" style="--cat:var(--cat-reg)">
+        <div class="row1"><span class="source">Estados Unidos</span><span>Hoy</span></div>
+        <h3>Washington promueve los "Carolina Principles" en el G20</h3>
+        <p>El asesor Michael Kratsios defiende evitar reglas específicas de tecnología, marcando una postura de desregulación frente a la UE.</p>
+        <a class="link" href="https://www.aljazeera.com/news/2026/9/2/us-pushes-looser-approach-to-ai-regulation-while-eu-pushes-new-law" target="_blank" rel="noopener">Leer fuente →</a>
+      </article>
+      <article class="card" style="--cat:var(--cat-reg)">
+        <div class="row1"><span class="source">Unión Europea</span><span>Hoy</span></div>
+        <h3>Bruselas exige información a más de 30 empresas de IA</h3>
+        <p>La Comisión Europea intensifica la vigilancia del cumplimiento del AI Act sobre actividades de alto riesgo y transparencia.</p>
+        <a class="link" href="https://www.aljazeera.com/news/2026/9/2/us-pushes-looser-approach-to-ai-regulation-while-eu-pushes-new-law" target="_blank" rel="noopener">Leer fuente →</a>
+      </article>
+      <article class="card" style="--cat:var(--cat-reg)">
+        <div class="row1"><span class="source">OpenAI / Congreso EE.UU.</span><span>Hoy</span></div>
+        <h3>OpenAI confirma que desarrolla apagado automatizado</h3>
+        <p>La revelación llega en una carta dirigida a demócratas de la Cámara de Representantes sobre controles de seguridad en sus sistemas.</p>
+        <a class="link" href="https://llm-stats.com/ai-news" target="_blank" rel="noopener">Leer fuente →</a>
+      </article>
+    </div>
+  </section>
+
+  <section class="category" data-cat="dev">
+    <div class="cat-head">
+      <span class="swatch" style="--cat:var(--cat-dev)"></span>
+      <h2>Programación &amp; herramientas</h2>
+      <span class="count">3 historias</span>
+      <div class="rule"></div>
+    </div>
+    <div class="cards">
+      <article class="card" style="--cat:var(--cat-dev)">
+        <div class="row1"><span class="source">OpenAI</span><span>Hoy</span></div>
+        <h3>El modelo Astra y su razonamiento de "profundidad recurrente"</h3>
+        <p>La técnica genera preocupación entre investigadores de seguridad por cómo afecta la interpretabilidad del razonamiento del modelo.</p>
+        <a class="link" href="https://llm-stats.com/ai-news" target="_blank" rel="noopener">Leer fuente →</a>
+      </article>
+      <article class="card" style="--cat:var(--cat-dev)">
+        <div class="row1"><span class="source">Investigación</span><span>Hoy</span></div>
+        <h3>Método TOHA para detectar alucinaciones en RAG</h3>
+        <p>Un nuevo enfoque busca identificar alucinaciones en modelos de lenguaje que usan recuperación aumentada (RAG) con mayor precisión.</p>
+        <a class="link" href="https://llm-stats.com/ai-news" target="_blank" rel="noopener">Leer fuente →</a>
+      </article>
+      <article class="card" style="--cat:var(--cat-dev)">
+        <div class="row1"><span class="source">OpenAI / AWS</span><span>Hoy</span></div>
+        <h3>Modelos de OpenAI llegan a Amazon Bedrock en Australia</h3>
+        <p>La disponibilidad regional se suma a inferencia cross-region global, ampliando opciones de despliegue para equipos de desarrollo.</p>
+        <a class="link" href="https://llm-stats.com/ai-news" target="_blank" rel="noopener">Leer fuente →</a>
+      </article>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="footer-grid">
+    <div>
+      <h4>Sobre este despacho</h4>
+      <p>Despacho Diario es un resumen personal, curado automáticamente cada mañana a partir de fuentes públicas sobre inteligencia artificial, tecnología, computación y programación: nuevos modelos, movimientos entre compañías, cambios de precios y brechas de seguridad.</p>
+      <p>Es un resumen generado por IA, no periodismo verificado — antes de tomar una decisión importante con esta información, revisa la fuente original de cada historia.</p>
+      <span class="next-run">↻ Próxima actualización automática: mañana, 7:00 a.m. (hora de Panamá)</span>
+    </div>
+    <div>
+      <h4>Fuentes de esta edición</h4>
+      <ul class="sources-list">
+        <li><a href="https://llm-stats.com/ai-news" target="_blank" rel="noopener">llm-stats.com — AI News</a></li>
+        <li><a href="https://www.aljazeera.com/news/2026/9/2/us-pushes-looser-approach-to-ai-regulation-while-eu-pushes-new-law" target="_blank" rel="noopener">Al Jazeera</a></li>
+        <li><a href="https://sharkstriker.com/blog/september-2026-data-breaches/" target="_blank" rel="noopener">SharkStriker — Data Breaches</a></li>
+        <li><a href="https://www.tomshardware.com/laptops/nvidia-unveils-rtx-spark-superchip-at-computex-2026-new-platform-promises-to-turn-windows-into-an-agentic-ai-os-with-arm-cpu-blackwell-gpu-and-128gb-unified-memory" target="_blank" rel="noopener">Tom's Hardware</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    var chips = Array.prototype.slice.call(document.querySelectorAll('.chip'));
+    var sections = Array.prototype.slice.call(document.querySelectorAll('section.category'));
+    var active = new Set();
+
+    function render(){
+      var allBtn = document.querySelector('.chip.all');
+      if(active.size === 0){
+        allBtn.setAttribute('aria-pressed','true');
+        sections.forEach(function(s){ s.hidden = false; });
+      } else {
+        allBtn.setAttribute('aria-pressed','false');
+        sections.forEach(function(s){
+          s.hidden = !active.has(s.getAttribute('data-cat'));
+        });
+      }
+      chips.forEach(function(c){
+        if(c.classList.contains('all')) return;
+        var f = c.getAttribute('data-filter');
+        c.setAttribute('aria-pressed', active.has(f) ? 'true' : 'false');
+      });
+    }
+
+    chips.forEach(function(chip){
+      chip.addEventListener('click', function(){
+        var f = chip.getAttribute('data-filter');
+        if(f === 'all'){
+          active.clear();
+        } else {
+          if(active.has(f)) active.delete(f); else active.add(f);
+        }
+        render();
+      });
+    });
+
+    render();
+  })();
+</script>
