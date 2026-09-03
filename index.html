@@ -192,6 +192,10 @@
     box-shadow:var(--shadow);
     display:flex; flex-direction:column; gap:10px;
   }
+  .bulletin .thumb{
+    margin:-18px -20px 0;
+    border-radius:7px 7px 0 0;
+  }
   .bulletin .kicker{
     font-family:'JetBrains Mono', monospace; font-size:11px;
     letter-spacing:.08em; text-transform:uppercase; color:var(--cat, var(--accent));
@@ -209,6 +213,21 @@
   }
   .bulletin .src a{ color:var(--text-dim); text-decoration:none; border-bottom:1px solid var(--border); }
   .bulletin .src a:hover{ color:var(--accent); border-color:var(--accent); }
+
+  /* ---------- Thumbnails ---------- */
+  .thumb{
+    aspect-ratio:16/9;
+    overflow:hidden;
+    background:#f4f5f7;
+    flex:none;
+  }
+  .thumb img{
+    width:100%; height:100%;
+    object-fit:contain;
+    padding:12px;
+    box-sizing:border-box;
+    display:block;
+  }
 
   /* ---------- Sections ---------- */
   section.category{ margin-bottom:38px; }
@@ -237,6 +256,10 @@
     border-radius:8px;
     padding:15px 17px 16px;
     display:flex; flex-direction:column; gap:8px;
+  }
+  .card .thumb{
+    margin:-15px -17px 0;
+    border-radius:6px 6px 0 0;
   }
   .card .row1{
     display:flex; justify-content:space-between; gap:10px;
@@ -323,18 +346,21 @@
   </div>
   <div class="bulletins">
     <div class="bulletin" style="--cat:var(--cat-reg)">
+      <div class="thumb"><img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b7/Flag_of_Europe.svg/500px-Flag_of_Europe.svg.png" alt="Bandera de la Unión Europea" loading="lazy" onerror="this.parentElement.remove()"></div>
       <span class="kicker">Regulación</span>
       <h3>La UE pide cuentas a más de 30 empresas de IA mientras EE.UU. impulsa la desregulación</h3>
       <p>La Comisión Europea envió solicitudes formales de información a más de 30 compañías de IA para verificar el cumplimiento del AI Act, justo cuando el asesor de Trump, Michael Kratsios, promovía en el G20 los "Carolina Principles", que evitan reglas específicas para la tecnología.</p>
       <span class="src">Al Jazeera — <a href="https://www.aljazeera.com/news/2026/9/2/us-pushes-looser-approach-to-ai-regulation-while-eu-pushes-new-law" target="_blank" rel="noopener">leer fuente ↗</a></span>
     </div>
     <div class="bulletin" style="--cat:var(--cat-dev)">
+      <div class="thumb"><img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a7/1515_Third_Street.jpg/500px-1515_Third_Street.jpg" alt="Sede de OpenAI en San Francisco" loading="lazy" onerror="this.parentElement.remove()"></div>
       <span class="kicker">Seguridad de modelos</span>
       <h3>OpenAI dice estar construyendo un apagado automatizado para sus sistemas de IA</h3>
       <p>En una carta a demócratas de la Cámara de Representantes, OpenAI reveló que desarrolla mecanismos de apagado automatizado. Al mismo tiempo, expertos cuestionan el razonamiento de "profundidad recurrente" de su modelo Astra.</p>
       <span class="src">Cobertura sectorial — ver categoría Programación</span>
     </div>
     <div class="bulletin" style="--cat:var(--cat-corp)">
+      <div class="thumb"><img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/7/75/Palo_Alto_Networks_Headquarters_South_Side_2018.jpg/500px-Palo_Alto_Networks_Headquarters_South_Side_2018.jpg" alt="Sede de Palo Alto Networks" loading="lazy" onerror="this.parentElement.remove()"></div>
       <span class="kicker">Corporativo</span>
       <h3>Palo Alto Networks compra la startup Console por 500 millones de dólares</h3>
       <p>La adquisición deja a Serval como la startup líder restante en automatización de servicios de TI con IA, en un día también marcado por resultados trimestrales récord de Broadcom en semiconductores de IA.</p>
@@ -351,18 +377,21 @@
     </div>
     <div class="cards">
       <article class="card" style="--cat:var(--cat-modelos)">
+        <div class="thumb"><img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/3/32/Googleplex_HQ_%28cropped%29.jpg/500px-Googleplex_HQ_%28cropped%29.jpg" alt="Googleplex, sede de Google" loading="lazy" onerror="this.parentElement.remove()"></div>
         <div class="row1"><span class="source">Google</span><span>Hoy</span></div>
         <h3>Gemini 3.8 Flash y Gemini 3.8 Flash Cyber</h3>
         <p>Google lanza dos nuevas variantes de su familia Flash; la versión "Cyber" está orientada a tareas de ciberseguridad y análisis de amenazas.</p>
         <a class="link" href="https://llm-stats.com/ai-news" target="_blank" rel="noopener">Leer fuente →</a>
       </article>
       <article class="card" style="--cat:var(--cat-modelos)">
+        <div class="thumb"><img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b0/Claude_AI_symbol.svg/500px-Claude_AI_symbol.svg.png" alt="Símbolo de Claude (Anthropic)" loading="lazy" onerror="this.parentElement.remove()"></div>
         <div class="row1"><span class="source">Anthropic</span><span>Ayer</span></div>
         <h3>Claude Fable 5.1 reduce el costo de lectura de caché a $0.25</h3>
         <p>La actualización incluye un recorte de precio en las lecturas de caché, abaratando el uso intensivo del modelo en aplicaciones de producción.</p>
         <a class="link" href="https://llm-stats.com/ai-news" target="_blank" rel="noopener">Leer fuente →</a>
       </article>
       <article class="card" style="--cat:var(--cat-modelos)">
+        <div class="thumb"><img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/c/cd/Tencent_Seafront_Tower_in_Dec2020.jpg/500px-Tencent_Seafront_Tower_in_Dec2020.jpg" alt="Torre Tencent Seafront" loading="lazy" onerror="this.parentElement.remove()"></div>
         <div class="row1"><span class="source">Tencent</span><span>Viernes</span></div>
         <h3>Vista previa de Tencent Hy4</h3>
         <p>Tencent muestra un adelanto de su próxima familia de modelos Hy4, sin fecha de disponibilidad general confirmada aún.</p>
@@ -375,12 +404,14 @@
         <a class="link" href="https://llm-stats.com/ai-news" target="_blank" rel="noopener">Leer fuente →</a>
       </article>
       <article class="card" style="--cat:var(--cat-modelos)">
+        <div class="thumb"><img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f4/Z.ai_%28company_logo%29.svg/500px-Z.ai_%28company_logo%29.svg.png" alt="Logo de Z.ai (Zhipu AI)" loading="lazy" onerror="this.parentElement.remove()"></div>
         <div class="row1"><span class="source">Zhipu AI / Alibaba</span><span>26 ago</span></div>
         <h3>GLM-5.3-Flash y variantes Qwen3.8 Flash</h3>
         <p>Ambas compañías chinas amplían su oferta de modelos "flash" de bajo costo y baja latencia en la misma semana.</p>
         <a class="link" href="https://llm-stats.com/ai-news" target="_blank" rel="noopener">Leer fuente →</a>
       </article>
       <article class="card" style="--cat:var(--cat-modelos)">
+        <div class="thumb"><img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b5/IBM_CHQ_-_Oct_2014.jpg/500px-IBM_CHQ_-_Oct_2014.jpg" alt="Sede corporativa de IBM" loading="lazy" onerror="this.parentElement.remove()"></div>
         <div class="row1"><span class="source">IBM</span><span>25 ago</span></div>
         <h3>Familia de modelos Granite 4.2</h3>
         <p>IBM continúa su línea Granite orientada a empresas con una actualización 4.2 enfocada en eficiencia y despliegue local.</p>
@@ -398,18 +429,21 @@
     </div>
     <div class="cards">
       <article class="card" style="--cat:var(--cat-corp)">
+        <div class="thumb"><img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/7/75/Palo_Alto_Networks_Headquarters_South_Side_2018.jpg/500px-Palo_Alto_Networks_Headquarters_South_Side_2018.jpg" alt="Sede de Palo Alto Networks" loading="lazy" onerror="this.parentElement.remove()"></div>
         <div class="row1"><span class="source">Palo Alto Networks</span><span>Hoy</span></div>
         <h3>Adquiere la startup Console por $500M</h3>
         <p>La compra deja a Serval como la principal startup independiente en automatización de servicios de TI impulsada por IA.</p>
         <a class="link" href="https://llm-stats.com/ai-news" target="_blank" rel="noopener">Leer fuente →</a>
       </article>
       <article class="card" style="--cat:var(--cat-corp)">
+        <div class="thumb"><img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c3/Insight_Partners_logo.png/500px-Insight_Partners_logo.png" alt="Logo de Insight Partners" loading="lazy" onerror="this.parentElement.remove()"></div>
         <div class="row1"><span class="source">Wonderful AI</span><span>Hoy</span></div>
         <h3>Levanta $550M en Serie C, valuación de $5,000M</h3>
         <p>Insight Partners lidera la ronda para la plataforma de automatización con IA, una de las más grandes de la semana.</p>
         <a class="link" href="https://llm-stats.com/ai-news" target="_blank" rel="noopener">Leer fuente →</a>
       </article>
       <article class="card" style="--cat:var(--cat-corp)">
+        <div class="thumb"><img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f8/Broadcom_Headquarters_San_Jose.jpg/500px-Broadcom_Headquarters_San_Jose.jpg" alt="Sede de Broadcom" loading="lazy" onerror="this.parentElement.remove()"></div>
         <div class="row1"><span class="source">Broadcom</span><span>Hoy</span></div>
         <h3>Ingresos de semiconductores de IA suben 221% interanual</h3>
         <p>Resultados del tercer trimestre: ingresos totales de $29,590M (+86% interanual); la división de IA alcanza $16,700M.</p>
@@ -433,24 +467,28 @@
     </div>
     <div class="cards">
       <article class="card" style="--cat:var(--cat-seg)">
+        <div class="thumb"><img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/4/48/Padlock-red.svg/500px-Padlock-red.svg.png" alt="Icono de brecha de seguridad" loading="lazy" onerror="this.parentElement.remove()"></div>
         <div class="row1"><span class="source">Blossom Health (NY)</span><span>Sep 2026</span></div>
         <h3>Ransomware expone ~29,600 registros de pacientes</h3>
         <p>Los atacantes exigen $30,000 antes del 4 de septiembre. Datos expuestos: nombres completos, teléfonos, direcciones y fechas de nacimiento.</p>
         <a class="link" href="https://sharkstriker.com/blog/september-2026-data-breaches/" target="_blank" rel="noopener">Leer fuente →</a>
       </article>
       <article class="card" style="--cat:var(--cat-seg)">
+        <div class="thumb"><img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/4/48/Padlock-red.svg/500px-Padlock-red.svg.png" alt="Icono de brecha de seguridad" loading="lazy" onerror="this.parentElement.remove()"></div>
         <div class="row1"><span class="source">Italtel (Milán)</span><span>Sep 2026</span></div>
         <h3>Telecom italiana comprometida por el grupo Everest</h3>
         <p>La naturaleza y el volumen exacto de los datos filtrados siguen bajo investigación.</p>
         <a class="link" href="https://sharkstriker.com/blog/september-2026-data-breaches/" target="_blank" rel="noopener">Leer fuente →</a>
       </article>
       <article class="card" style="--cat:var(--cat-seg)">
+        <div class="thumb"><img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/4/48/Padlock-red.svg/500px-Padlock-red.svg.png" alt="Icono de brecha de seguridad" loading="lazy" onerror="this.parentElement.remove()"></div>
         <div class="row1"><span class="source">THQ Nordic</span><span>Sep 2026</span></div>
         <h3>Editora de videojuegos atacada por el grupo Direwolf</h3>
         <p>La compañía confirma el incidente; aún evalúa el alcance de los datos comprometidos.</p>
         <a class="link" href="https://sharkstriker.com/blog/september-2026-data-breaches/" target="_blank" rel="noopener">Leer fuente →</a>
       </article>
       <article class="card" style="--cat:var(--cat-seg)">
+        <div class="thumb"><img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/4/48/Padlock-red.svg/500px-Padlock-red.svg.png" alt="Icono de brecha de seguridad" loading="lazy" onerror="this.parentElement.remove()"></div>
         <div class="row1"><span class="source">Gale Credit Union (IL)</span><span>Sep 2026</span></div>
         <h3>Cooperativa financiera atacada por el grupo Akira</h3>
         <p>El alcance de la exposición de datos financieros de socios sigue bajo investigación.</p>
@@ -468,12 +506,14 @@
     </div>
     <div class="cards">
       <article class="card" style="--cat:var(--cat-hw)">
+        <div class="thumb"><img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/7/75/2788-2888_San_Tomas_Expwy.jpg/500px-2788-2888_San_Tomas_Expwy.jpg" alt="Sede de Nvidia" loading="lazy" onerror="this.parentElement.remove()"></div>
         <div class="row1"><span class="source">Nvidia</span><span>Hoy</span></div>
         <h3>Jensen Huang pide al G20 construir más centros de datos</h3>
         <p>El CEO de Nvidia insta a los ministros del G20 a acelerar la infraestructura física necesaria para sostener la expansión de la IA.</p>
         <a class="link" href="https://llm-stats.com/ai-news" target="_blank" rel="noopener">Leer fuente →</a>
       </article>
       <article class="card" style="--cat:var(--cat-hw)">
+        <div class="thumb"><img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/7/75/2788-2888_San_Tomas_Expwy.jpg/500px-2788-2888_San_Tomas_Expwy.jpg" alt="Sede de Nvidia" loading="lazy" onerror="this.parentElement.remove()"></div>
         <div class="row1"><span class="source">Nvidia</span><span>Recap</span></div>
         <h3>RTX Spark Superchip: CPU Arm + GPU Blackwell + 128GB unificados</h3>
         <p>La nueva plataforma para laptops y escritorio busca convertir Windows en un "OS agéntico" apto para IA local.</p>
@@ -491,18 +531,21 @@
     </div>
     <div class="cards">
       <article class="card" style="--cat:var(--cat-reg)">
+        <div class="thumb"><img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a4/Flag_of_the_United_States.svg/500px-Flag_of_the_United_States.svg.png" alt="Bandera de Estados Unidos" loading="lazy" onerror="this.parentElement.remove()"></div>
         <div class="row1"><span class="source">Estados Unidos</span><span>Hoy</span></div>
         <h3>Washington promueve los "Carolina Principles" en el G20</h3>
         <p>El asesor Michael Kratsios defiende evitar reglas específicas de tecnología, marcando una postura de desregulación frente a la UE.</p>
         <a class="link" href="https://www.aljazeera.com/news/2026/9/2/us-pushes-looser-approach-to-ai-regulation-while-eu-pushes-new-law" target="_blank" rel="noopener">Leer fuente →</a>
       </article>
       <article class="card" style="--cat:var(--cat-reg)">
+        <div class="thumb"><img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b7/Flag_of_Europe.svg/500px-Flag_of_Europe.svg.png" alt="Bandera de la Unión Europea" loading="lazy" onerror="this.parentElement.remove()"></div>
         <div class="row1"><span class="source">Unión Europea</span><span>Hoy</span></div>
         <h3>Bruselas exige información a más de 30 empresas de IA</h3>
         <p>La Comisión Europea intensifica la vigilancia del cumplimiento del AI Act sobre actividades de alto riesgo y transparencia.</p>
         <a class="link" href="https://www.aljazeera.com/news/2026/9/2/us-pushes-looser-approach-to-ai-regulation-while-eu-pushes-new-law" target="_blank" rel="noopener">Leer fuente →</a>
       </article>
       <article class="card" style="--cat:var(--cat-reg)">
+        <div class="thumb"><img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a7/1515_Third_Street.jpg/500px-1515_Third_Street.jpg" alt="Sede de OpenAI en San Francisco" loading="lazy" onerror="this.parentElement.remove()"></div>
         <div class="row1"><span class="source">OpenAI / Congreso EE.UU.</span><span>Hoy</span></div>
         <h3>OpenAI confirma que desarrolla apagado automatizado</h3>
         <p>La revelación llega en una carta dirigida a demócratas de la Cámara de Representantes sobre controles de seguridad en sus sistemas.</p>
@@ -520,6 +563,7 @@
     </div>
     <div class="cards">
       <article class="card" style="--cat:var(--cat-dev)">
+        <div class="thumb"><img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a7/1515_Third_Street.jpg/500px-1515_Third_Street.jpg" alt="Sede de OpenAI en San Francisco" loading="lazy" onerror="this.parentElement.remove()"></div>
         <div class="row1"><span class="source">OpenAI</span><span>Hoy</span></div>
         <h3>El modelo Astra y su razonamiento de "profundidad recurrente"</h3>
         <p>La técnica genera preocupación entre investigadores de seguridad por cómo afecta la interpretabilidad del razonamiento del modelo.</p>
@@ -532,6 +576,7 @@
         <a class="link" href="https://llm-stats.com/ai-news" target="_blank" rel="noopener">Leer fuente →</a>
       </article>
       <article class="card" style="--cat:var(--cat-dev)">
+        <div class="thumb"><img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fc/Amazon_Web_Services_2025.svg/500px-Amazon_Web_Services_2025.svg.png" alt="Logo de Amazon Web Services" loading="lazy" onerror="this.parentElement.remove()"></div>
         <div class="row1"><span class="source">OpenAI / AWS</span><span>Hoy</span></div>
         <h3>Modelos de OpenAI llegan a Amazon Bedrock en Australia</h3>
         <p>La disponibilidad regional se suma a inferencia cross-region global, ampliando opciones de despliegue para equipos de desarrollo.</p>
